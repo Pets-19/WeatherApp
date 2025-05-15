@@ -81,9 +81,13 @@ export default function HomeScreen() {
           contentContainerStyle={styles.forecastList}>
           {todayData.map(({time, temp, icon, active}) => (
             <View key={time} style={[styles.card, active && styles.cardActive]}>
-              <Text style={styles.cardHour}>{time}</Text>
-              <Image source={weatherIcons[icon]} style={styles.cardIcon} />
-              <Text style={styles.cardTemp}>{temp}</Text>
+              <View style={styles.iconView}>
+                <Image source={weatherIcons[icon]} style={styles.cardIcon} />
+              </View>
+              <View style={styles.textView}>
+                <Text style={styles.cardHour}>{time}</Text>
+                <Text style={styles.cardTemp}>{temp}</Text>
+              </View>
             </View>
           ))}
         </ScrollView>
@@ -120,23 +124,36 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   icon: {width: 180, height: 180, alignSelf: 'center', marginVertical: 10},
-  forecastList: {paddingVertical: 10},
+  forecastList: {paddingVertical: 20},
   card: {
-    width: 80,
+    width: 125,
     padding: 10,
     marginRight: 12,
     borderRadius: 12,
     backgroundColor: Colors.hash,
     alignItems: 'center',
+    flexDirection: 'row',
   },
   cardActive: {backgroundColor: Colors.light},
   cardHour: {
     fontFamily: Fonts.regular,
     fontSize: FontSizes.h7,
     color: Colors.white,
-    marginBottom: 8,
+    marginBottom: 4,
   },
-  cardIcon: {width: 36, height: 36, marginBottom: 8},
+  cardIcon: {width: 50, height: 50, marginBottom: 8},
+  iconView: {
+    width: 40,
+    height: 40,
+    marginBottom: 4,
+    alignItems: 'center',
+  },
+  textView: {
+    width: 60,
+    height: 40,
+    marginBottom: 4,
+    alignItems: 'center',
+  },
   cardTemp: {
     fontFamily: Fonts.bold,
     fontSize: FontSizes.h5,

@@ -51,8 +51,10 @@ export default function ForecastScreen() {
         contentContainerStyle={styles.forecastList}>
         {todayData.map(({time, temp, icon, active}) => (
           <View key={time} style={[styles.card, active && styles.cardActive]}>
-            <Image source={weatherIcons[icon]} style={styles.cardIcon} />
-            <View style={styles.cardRight}>
+            <View style={styles.iconView}>
+              <Image source={weatherIcons[icon]} style={styles.cardIcon} />
+            </View>
+            <View style={styles.textView}>
               <Text style={styles.cardHour}>{time}</Text>
               <Text style={styles.cardTemp}>{temp}</Text>
             </View>
@@ -146,30 +148,39 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   listIcon: {width: 36, height: 36},
+  forecastList: {height: 80, marginBottom: 40},
   card: {
     width: 125,
     padding: 10,
     marginRight: 12,
     borderRadius: 12,
     backgroundColor: Colors.hash,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   cardActive: {backgroundColor: Colors.light},
   cardHour: {
     fontFamily: Fonts.regular,
     fontSize: FontSizes.h7,
     color: Colors.white,
-    marginBottom: 8,
+    marginBottom: 4,
   },
-  cardIcon: {width: 36, height: 36, marginBottom: 8},
-  cardTemp: {
-    fontFamily: Fonts.regular,
-    fontSize: FontSizes.h7,
-    color: Colors.white,
-    marginBottom: 8,
-  },
-  cardRight: {
+  cardIcon: {width: 50, height: 50, marginBottom: 8},
+  iconView: {
+    width: 40,
+    height: 40,
+    marginBottom: 4,
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    flex: 1,
+  },
+  textView: {
+    width: 60,
+    height: 40,
+    marginBottom: 4,
+    alignItems: 'center',
+  },
+  cardTemp: {
+    fontFamily: Fonts.bold,
+    fontSize: FontSizes.h5,
+    color: Colors.white,
   },
 });
