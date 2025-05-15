@@ -29,7 +29,7 @@ const widgetData = [
   {
     city: 'Kolla, Kerala',
     desc: 'Sunny',
-    icon: require('../../assets/icons/partlyRain.png'),
+    icon: require('../../assets/icons/rain.png'),
     temp: '30°',
     bg: ['#76BAFF', '#A0D8FF'],
     textDark: true,

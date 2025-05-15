@@ -20,7 +20,7 @@ const notifications = [
     id: '3',
     title: "It's a sunny day",
     body: 'Enjoy some sunshine today, but stay hydrated!',
-    icon: require('../../assets/icons/partlyRain.png'),
+    icon: require('../../assets/icons/rain.png'),
   },
 ];
 

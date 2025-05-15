@@ -1,4 +1,3 @@
-// src/screens/HomeScreen.js
 import React from 'react';
 import {
   View,
@@ -8,14 +7,13 @@ import {
   ImageBackground,
   ScrollView,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
 import LinearGradient from 'react-native-linear-gradient';
 import StatsRow from '../components/StatsRow';
 import {Colors, Fonts, FontSizes} from '../theme';
 
 const weatherIcons = {
   thunderstorm: require('../../assets/icons/thunder.png'),
-  lightning: require('../../assets/icons/lighting.png'),
+  lightning: require('../../assets/icons/rainy-cloud.png'),
   rain: require('../../assets/icons/rain.png'),
   partlyRain: require('../../assets/icons/rainy-cloud.png'),
   snow: require('../../assets/icons/snow.png'),
@@ -29,6 +27,13 @@ export default function HomeScreen() {
     {time: '17:00', temp: '29°', icon: 'snow'},
   ];
 
+  // Dev check: will warn you if a key is wrong
+  todayData.forEach(({icon}) => {
+    if (!weatherIcons[icon]) {
+      console.warn('⚠️ Missing weatherIcons key: "${icon}"');
+    }
+  });
+
   return (
     <ImageBackground
       source={require('../../assets/images/clouds.png')}
@@ -37,16 +42,36 @@ export default function HomeScreen() {
       <LinearGradient
         colors={[Colors.dark + 'AA', Colors.primary + 'AA']}
         style={styles.overlay}>
-        <Text style={styles.location}>Kochi, Kerala</Text>
-        <Text style={styles.datetime}>June 20, 3:01 AM</Text>
+        <View style={styles.section}>
+          <View style={styles.locationContainer}>
+            <Text style={styles.location}>Kochi, Kerala</Text>
+            <Image
+              source={require('../../assets/icons/location-gps.png')}
+              style={styles.locationIcon}
+            />
+          </View>
+          <Text style={styles.datetime}>June 20, 3:01 AM</Text>
+        </View>
 
         <Image source={weatherIcons.lightning} style={styles.icon} />
 
         <StatsRow
           data={[
-            {label: 'Temp', value: '28°', icon: 'thermometer'},
-            {label: 'Wind', value: '7.9 km/h', icon: 'wind'},
-            {label: 'Humidity', value: '84%', icon: 'droplet'},
+            {
+              label: 'Temp',
+              value: '28°',
+              icon: require('../../assets/icons/thermostat.png'),
+            },
+            {
+              label: 'Wind',
+              value: '7.9 km/h',
+              icon: require('../../assets/icons/wind.png'),
+            },
+            {
+              label: 'Humidity',
+              value: '84%',
+              icon: require('../../assets/icons/humidity.png'), // just the source
+            },
           ]}
         />
 
@@ -69,15 +94,24 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   background: {flex: 1},
-  overlay: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'flex-start',
-  },
+  overlay: {flex: 1, padding: 40, justifyContent: 'flex-start'},
+  section: {alignItems: 'center', marginBottom: 20},
+  locationContainer: {flexDirection: 'row', alignItems: 'center'},
   location: {
-    fontFamily: Fonts.bold,
-    fontSize: FontSizes.h4,
+    fontFamily: Fonts.regular,
+    fontSize: 30,
     color: Colors.white,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  locationIcon: {
+    width: 20,
+    height: 20,
+    marginLeft: 8,
+    tintColor: Colors.white,
+    marginBottom: 20,
+    alignSelf: 'center',
+    justifyContent: 'flex-end',
   },
   datetime: {
     fontFamily: Fonts.regular,
@@ -85,7 +119,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     marginBottom: 20,
   },
-  icon: {width: 140, height: 140, alignSelf: 'center', marginVertical: 10},
+  icon: {width: 180, height: 180, alignSelf: 'center', marginVertical: 10},
   forecastList: {paddingVertical: 10},
   card: {
     width: 80,
